@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block title %}Backup{% endblock %} {% block content
+%}<br/>
+<h2>
+    {{all_ips[0].__class__.name__}}
+</h2>
+{% for ip in all_ips%}
+{% if ip.suggested == 'N' and '2021.' in ip.date_suggested %}
+    <br/>{{ip.num}} {{ip.title}} {{ip.suggested}} {{ ip.date_suggested}}
+{% endif %}
+{% endfor %}
+{% endblock %}

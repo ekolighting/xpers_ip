@@ -1,0 +1,111 @@
+{% extends "base.html" %} {% block title %}IIII{% endblock %}
+
+{% block content%}<br/>
+<div style="text-align: center;">
+    <img src="../static/images/Slogan_2_Black.png" style = "max-width: 100%" alt="Slogan_black">
+</div>
+<br/>
+<a href="/adding" class="btn btn-primary btn-sm" style = "width : 100%" >Add IP</a>
+<form method = "POST">
+<table class="table table-sm table-borderless" style = "text-align: center;"  >
+  <thead>
+    <tr>
+        <th scope="col" class = "align-middle"></th>
+        <th scope="col" class = "align-middle"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class = "align-middle" style = "width : 15%">
+          <h5>
+              <span class="badge bg-light">제목</span>
+          </h5>
+      </td>
+    <td class = "align-middle" ><input type="text" autofocus="autofocus" id="searchtitle" name="searchtitle" class="form-control form-rounded form-control-sm" placeholder="제목 검색" aria-describedby="basic-addon2">
+    </td>
+  </tr>
+  <tr>
+      <td class = "align-middle" style = "width : 15%">          <h5>
+              <span class="badge bg-light">연재일/출판일</span>
+          </h5>
+      </td>
+    <td class = "align-middle" ><input type="text" id="search_datepub" name="search_datepub" class="form-control form-rounded form-control-sm" placeholder="연재일/출판일 검색" aria-describedby="basic-addon2">
+      </td>
+  </tr>
+ <tr>
+  <td class = "align-middle" style = "width : 15%">
+        <h5>
+              <span class="badge bg-light">장르</span>
+          </h5>
+        <td class = "align-middle" ><input type="text" id="search_genre" name="search_genre" class="form-control form-rounded form-control-sm" placeholder="장르 검색" aria-describedby="basic-addon2"></td>
+  </tr>
+
+  </tbody>
+</table>
+
+  <div class="d-grid gap-2">
+  <button type="submit" class="btn btn-secondary btn-sm" style = "width : 100%" formaction ="/search"> Search </button>
+</div>
+    </form>
+      <br/>
+      
+<table class="table table-sm table-hover" style = "text-align: center;">
+  <thead>
+    <tr class="table-success">
+        <th scope="col" class = "align-middle">번호</th>
+        <th scope="col" class = "align-middle">제목</th>
+        <th scope="col" class = "align-middle">원작자</th>
+        <th scope="col" class = "align-middle">연재일/출판일</th>
+        <th scope="col" class = "align-middle">장르</th>
+        <th scope="col" class = "align-middle">상세보기</th>
+        <th scope="col" class = "align-middle">편집</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for ip in ips %}
+      <tr>
+          <td class = "align-middle elli_20" >{{ ip.num }}</td>
+          <td class = "align-middle" >{{ ip.title }}</td>
+          <td class = "align-middle elli_60">{{ ip.writer }} </td>
+          <td class = "align-middle elli_20">{{ ip.date_pub }}</td>
+          <td class = "align-middle elli_60">{{ ip.genre }}</td>
+          <td class = "align-middle elli_40"><a href="/detail-view/{{ip.__class__.__name__}}/{{ip.id}}" class="btn btn-outline-secondary btn-sm" >view</a></td>
+          <td class = "align-middle elli_40"><a href="/update/{{ip.id}}" class="btn btn-outline-secondary btn-sm" >edit</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<style>
+  table {
+    width : 100%;
+  }
+  td, th {
+    font-size: 12px;
+  }
+
+.elli_20 {
+    max-width:10px;
+}
+    
+.elli_40 {
+    max-width:80px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    }
+.elli_80 {
+    max-width:300px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    }
+
+h1, h2 {text-align: center;}
+
+
+.form-rounded {border-radius: 0.4rem;
+    }
+
+</style>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %}
+
+{% block content
+%}<br/>
+<div style="text-align: center;">
+    <img src="../static/images/Slogan_1_Black.png" style = "max-width: 100%" alt="Slogan_black">
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for ip in ips.keys() %}
+  <div class="col">
+      <br/>
+    <div class="card h-100" style="width: 100%; border-radius: 10px;" >
+        <a href="/{{ip.__name__}}">
+      <img src="../static/images/{{ip.__name__}}_img.jpg" class="card-img-top" alt="웹툰" style="border-radius: 10px 10px 3px 3px;">
+        </a> 
+      <div class="card-body">
+        <h5 class="card-title"> {{ip.__name__}}</h5>
+          <p class="card-text">총 {{ips[ip][1]}} 건의 작품이 있습니다. </p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">Last updated {{ips[ip][-1]}} ago </small>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+    </div>
+
+<br/><br/>
+<table>
+    <th style="background-image: url('../static/images/Pattern_16_9_RGB_1.jpg'); border-radius: 10px;">
+    </th>
+</table>
+
+<style>
+th {
+  width : 1600px;
+  height: 900px;
+  vertical-align: top;
+}</style>
+{% endblock %}

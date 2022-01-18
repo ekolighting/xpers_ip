@@ -1,0 +1,41 @@
+{% extends "base.html" %} {% block title %} COMPONENTS {% endblock %}
+
+{% block content%}
+<br/>
+<div style="text-align: center;">
+    <img src="../static/images/Slogan_2_Black.png" style = "max-width: 100%" alt="Slogan_black">
+</div>
+
+<form method="POST">
+<div class="form-group">
+
+<h2>Users</h2>
+<br/>
+Total Users 
+<br/>
+{% for user in users %}
+{{user.first_name}} : {{ user.email}}<br/>
+{% endfor %}<br/>
+
+<div class="mb-3">
+  <label for="all_platform_list" class="form-label">총 개수 : {{total_webtoon}}</label>
+
+  <textarea class="form-control" id="all_platform_list_textarea" name ="all_platform_list_textarea"  rows = "12">
+{% for cp in webtoon_copyright_status %}
+      {{cp}}   
+{% endfor %}
+  </textarea>
+</div>
+
+   
+<h3>Genre</h3>
+
+<textarea class="form-control" id="all_genre_list_textarea" rows = "12">
+{% for genre in webtoon_genre %}
+    {{genre}}
+{% endfor %}<br/>
+</textarea>
+
+</div>
+</form>
+{% endblock%}

@@ -1,0 +1,155 @@
+{% extends "base.html" %} {% block title %}IP Detail View{% endblock %} {% block content
+%}<br/>
+<div style="text-align: center;">
+    <img src="../../static/images/Slogan_2_Black.png" style = "max-width: 100%" alt="Slogan_black">
+</div>
+<div>
+<h2>Details</h2>
+    </div>
+<br/>
+
+<ul class="list-group list-group-flush" id="notes">
+   <div class = "text-right">
+        <a href="/{{ip.__class__.__name__}}" class="btn btn-outline-secondary btn-sm" > back to list </a>
+        <a href="/update/{{ip.__class__.__name__}}/{{ip.id}}" class="btn btn-outline-secondary btn-sm" > edit </a>
+        <a class = "btn btn-outline-secondary btn-sm" href="/delete/{{ip.__class__.__name__}}/{{ip.id}}">delete</a>
+    </div>
+    
+    <table class="table table-sm table-hover" style = "text-align: left;">
+  <thead>
+    <tr class="table-success">
+        <th scope="col" align = "left"></th>
+        <th scope="col" align = "right"></th>
+    </tr>
+  </thead>
+  <tbody class = "h7">
+          <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-primary">종류</span></td>
+          <td> {{ ip.__class__.__name__ }} </td>
+      </tr>
+        <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-primary">번호</span></td>
+          <td> {{ ip.num }} </td>
+      </tr>
+      <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-primary">제목</span></td>
+          <td> {{ ip.title }} </td>
+      </tr>
+    {% if ip.__class__.__name__ == 'Books' %}
+      <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-primary">분류</span></td>
+          <td > {{ ip.category }} </td>
+      </tr>
+      <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-primary">국가</span></td>
+          <td > {{ ip.nation }} </td>
+      </tr>
+      {% endif %}
+      <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-primary">주장르</span></td>
+          <td > {{ ip.genre }} </td>
+      </tr>
+      <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-primary">키워드</span></td>
+          <td > {{ ip.keyword }} </td>
+      </tr>
+        <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-primary">추천경로</span></td>
+          <td > {{ ip.ref_path }} </td>
+      </tr>
+      <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-primary">파트너/저작권</span></td>
+          <td > {{ ip.copyright }} </td>
+      </tr>
+        <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-primary">원작자</span></td>
+          <td > {{ ip.writer }} </td>
+      </tr>
+        <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-primary">판권현황</span></td>
+          <td > {{ ip.copyright_status }} </td>
+      </tr>
+      <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-secondary">연재일/출판일</span></td>
+          <td > {{ ip.date_pub }} </td>
+      </tr>
+      <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-secondary">조건 및 참고사항</span></td>
+          <td > {{ ip.condition }} </td>
+      </tr>
+
+      {% if ip.monitored == 'Y'%}
+      <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-secondary">모니터링 시점</span></td>
+          <td > {{ ip.date_monitor }} </td>
+      </tr>
+      {% else %}
+        <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-secondary">모니터링 진행 여부</span></td>
+          <td > {{ ip.monitored }} </td>
+      </tr>
+      {% endif %}
+
+      {% if ip.suggested == 'Y' %}
+      <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-secondary">현업제안시기</span></td>
+          <td > {{ ip.date_suggested }} </td>
+      </tr>
+        {% if ip.__class__.__name__ != 'WebToonIP' %}
+      <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-secondary">현업 제안 내용</span></td>
+          <td > {{ ip.suggested_feedback }} </td>
+      </tr>
+      {% endif %}
+      {% else %}
+      <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-secondary">현업제안여부</span></td>
+          <td > {{ ip.suggested }} </td>
+      </tr>
+      {% endif %}
+
+        <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-secondary elli_80">줄거리</span></td>
+          <td class = "elli_80"> {{ ip.story }} </td>
+      </tr>
+
+      <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-secondary elli_80">검토의견</span></td>
+          <td > {{ ip.feedback }} </td>
+      </tr>
+      <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-secondary">작성자</span></td>
+          <td > {{ ip.author.first_name }} </td>
+      </tr>
+      <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-secondary">작성일</span></td>
+          <td > {{ ip.date }} </td>
+      </tr>
+      <tr>
+          <td align = "right" class = "elli_40"><span class="badge badge-pill badge-secondary elli_40"></span></td>
+          <td ></td>
+      </tr>
+  </tbody>
+</table>
+    
+    <div class = "text-right">
+        <a href="/{{ip.__class__.__name__}}" class="btn btn-outline-secondary btn-sm" >back to list</a>
+        <a href="/update/{{ip.__class__.__name__}}/{{ip.id}}" class="btn btn-outline-secondary btn-sm" >edit</a>
+        <a class = "btn btn-outline-secondary btn-sm" href="/delete/{{ip.__class__.__name__}}/{{ip.id}}">delete</a>
+    </div>
+<style>
+.elli_20 {
+    max-width:10px;
+}
+    
+.elli_40 {
+    max-width:150px;
+    }
+.elli_80 {
+    max-width:800px;
+    }
+
+h2 {text-align: center;}
+    .form-rounded {border-radius: 0.5rem;}
+</style>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block title %}Backup{% endblock %} {% block content
+%}<br/>
+<h2>Backup DB</h2>
+<form method="POST">
+  <div>
+    <button type="submit" name = "button" value = "backup" class="btn btn-primary form-rounded">Backup DB</button>
+  </div>
+    <br/>
+  <div>
+    <button type="submit" name = "button" value = "restore" class="btn btn-primary form-rounded">Restore DB</button>
+  </div>
+    {{process}} is done ( {{db_file}} )
+    <div>
+    <select class="form-select form-rounded" 
+          id="backupfiles"
+          name="backupfiles"
+    >
+    <option selected>{{backup_list[0]}}</option>
+    {% for file in backup_list %}
+    <option value="{{file}}">{{file}}</option>
+    {% endfor %}
+  </select>  
+</div><br/>
+</form>
+{% endblock %}

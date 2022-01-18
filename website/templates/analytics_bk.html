@@ -1,0 +1,186 @@
+{% extends "base.html" %} {% block title %} Statics - web toon{% endblock %}
+{% block content%}
+
+<br/>
+<div style="text-align: center;">
+    <img src="../static/images/Slogan_2_Black.png" style = "max-width: 100%" alt="Slogan_black">
+</div>
+<h2>Statistics - {{ips[0].__class__.__name__}} : 총 {{ total }} 개</h2>
+<div id="genre_barchart" style="width: 100%; height: 600px;"></div>
+<div id="copyright_status_barchart" style="width: 100%; height: 600px;"></div>
+
+<h2>Statistics - {{ips_webnovel[0].__class__.__name__}} : 총 {{ total_webnovel }} 개</h2>
+<div id="genre_barchart_webnovel" style="width: 100%; height: 600px;"></div>
+<div id="copyright_status_barchart_webnovel" style="width: 100%; height: 600px;"></div>
+
+<h2>Statistics - {{ips_books[0].__class__.__name__}} : 총 {{ total_books }} 개</h2>
+<div id="genre_barchart_books" style="width: 100%; height: 600px;"></div>
+<div id="copyright_status_barchart_books" style="width: 100%; height: 600px;"></div>
+
+===========================================<br/>
+장르별 통계<br/>
+===========================================<br/>
+{{ips[0].__class__.__name__}} : 총 {{ total }} 개<br/>
+{% for genre in all_genre.keys() %}
+{{genre}} - {{all_genre[genre]}}<br/>
+{% endfor %}<br/>
+
+{{ips_webnovel[0].__class__.__name__}} : 총 {{ total_webnovel }} 개<br/>
+{% for genre in all_genre_webnovel.keys() %}
+{{genre}} - {{all_genre_webnovel[genre]}}<br/>
+{% endfor %}<br/>
+
+{{ips_books[0].__class__.__name__}} : 총 {{ total_books }} 개<br/>
+{% for genre in all_genre_books.keys() %}
+{{genre}} - {{all_genre_books[genre]}}<br/>
+{% endfor %}<br/>
+
+===========================================<br/>
+판권현황 통계<br/>
+===========================================<br/>
+{{ips[0].__class__.__name__}} : 총 {{ total }} 개<br/>
+{% for copyright_status in all_copyright_status.keys() %}
+{{ copyright_status }} - {{all_copyright_status[copyright_status]}}<br/>
+{% endfor %}
+<br/>
+{{ips_webnovel[0].__class__.__name__}} : 총 {{ total_webnovel }} 개<br/>
+{% for copyright_status in all_copyright_status_webnovel.keys() %}
+{{ copyright_status }} - {{all_copyright_status_webnovel[copyright_status]}}<br/>
+{% endfor %}
+
+<br/>
+
+{{ips_books[0].__class__.__name__}} : 총 {{ total_books }} 개<br/>
+{% for copyright_status in all_copyright_status_books.keys() %}
+{{ copyright_status }} - {{all_copyright_status_books[copyright_status]}}<br/>
+{% endfor %}
+
+<br/>
+===========================================<br/>
+모니터링 시점 통계<br/>
+===========================================<br/>
+{{ips[0].__class__.__name__}} : 총 {{ total }} 개<br/>
+{% for date_monitor in all_date_monitor.keys() %}
+{{ date_monitor }} - {{all_date_monitor[date_monitor]}}<br/>
+{% endfor %}
+<br/>
+
+{{ips_webnovel[0].__class__.__name__}} : 총 {{ total_webnovel }} 개<br/>
+{% for date_monitor in all_date_monitor_webnovel.keys() %}
+{{ date_monitor }} - {{all_date_monitor_webnovel[date_monitor]}}<br/>
+{% endfor %}
+<br/>
+
+{{ips_books[0].__class__.__name__}} : 총 {{ total_books }} 개<br/>
+{% for date_monitor in all_date_monitor_books.keys() %}
+{{ date_monitor }} - {{all_date_monitor_books[date_monitor]}}<br/>
+{% endfor %}
+<br/>
+ <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawChart_genre_bar);
+      google.charts.setOnLoadCallback(drawChart_genre_bar_webnovel);
+      google.charts.setOnLoadCallback(drawChart_copyright_status_bar_webnovel);
+      google.charts.setOnLoadCallback(drawChart_genre_bar_books);
+      google.charts.setOnLoadCallback(drawChart_copyright_status_bar_books);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable({{ copyright_status_graph_data | safe }});
+
+        var options = {
+          title: '판권현황',
+          legend: { position: "none" },
+          chartArea: {width: '75%'},
+          hAxis: {
+              minValue: 0
+            }
+          }
+
+        var chart = new google.visualization.BarChart(document.getElementById('copyright_status_barchart'));
+        chart.draw(data, options);
+      }
+
+      function drawChart_genre_bar() {
+        var data_genre = google.visualization.arrayToDataTable({{ genre_graph_data | safe }});
+
+        var options_genre_bar = {
+          title: '주장르',
+          legend: { position: "none" },
+          chartArea: {width: '75%'},
+          hAxis: {
+              minValue: 0
+            }
+        };
+
+        var chart_genre = new google.visualization.BarChart(document.getElementById('genre_barchart'));
+        chart_genre.draw(data_genre, options_genre_bar);
+      }
+        
+      function drawChart_genre_bar_webnovel() {
+        var data_genre_webnovel = google.visualization.arrayToDataTable({{ genre_graph_data_webnovel | safe }});
+
+        var options_genre_bar_webnovel = {
+          title: '주장르',
+          legend: { position: "none" },
+          chartArea: {width: '75%'},
+          hAxis: {
+              minValue: 0
+            }
+        };
+
+        var chart_genre_webnovel = new google.visualization.BarChart(document.getElementById('genre_barchart_webnovel'));
+        chart_genre_webnovel.draw(data_genre_webnovel, options_genre_bar_webnovel);
+      }
+
+      function drawChart_copyright_status_bar_webnovel() {
+        var data_copyright_status_webnovel = google.visualization.arrayToDataTable({{ copyright_status_graph_data_webnovel | safe }});
+
+        var options_copyright_status_bar_webnovel = {
+          title: '판권현황',
+          legend: { position: "none" },
+          chartArea: {width: '75%'},
+          hAxis: {
+              minValue: 0
+            }
+        };
+
+        var chart_copyright_status_webnovel = new google.visualization.BarChart(document.getElementById('copyright_status_barchart_webnovel'));
+        chart_copyright_status_webnovel.draw(data_copyright_status_webnovel, options_copyright_status_bar_webnovel);
+      }
+        
+      function drawChart_genre_bar_books() {
+        var data_genre_books = google.visualization.arrayToDataTable({{ genre_graph_data_books | safe }});
+
+        var options_genre_bar_books = {
+          title: '주장르',
+          legend: { position: "none" },
+          chartArea: {width: '75%'},
+          hAxis: {
+              minValue: 0
+            }
+        };
+
+        var chart_genre_books = new google.visualization.BarChart(document.getElementById('genre_barchart_books'));
+        chart_genre_books.draw(data_genre_books, options_genre_bar_books);
+      }
+
+      function drawChart_copyright_status_bar_books() {
+        var data_copyright_status_books = google.visualization.arrayToDataTable({{ copyright_status_graph_data_books | safe }});
+
+        var options_copyright_status_bar_books = {
+          title: '판권현황',
+          legend: { position: "none" },
+          chartArea: {width: '75%'},
+          hAxis: {
+              minValue: 0
+            }
+        };
+
+        var chart_copyright_status_books = new google.visualization.BarChart(document.getElementById('copyright_status_barchart_books'));
+        chart_copyright_status_books.draw(data_copyright_status_books, options_copyright_status_bar_books);
+      }
+                
+ </script>
+{% endblock %}

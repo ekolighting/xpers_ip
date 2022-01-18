@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+@font-face{
+    font-family: 'cjmedium';
+    src: url('fonts/CJONLYONENEWbodyOTFRegular.otf');
+    font-style: normal;
+    font-weight: 100;
+}
+
+@font-face{
+    font-family: 'nanum';
+    src: url('fonts/NanumGothic.woff');
+    font-style: normal;
+    font-weight: 100;
+}
+
+
+h1{
+    font-family: cjmedium;
+    font-weight: 100;
+    font-size : 64px;
+}
+
+h2{
+    font-family: nanum;
+    font-weight: 100;
+    font-size : 64px;
+}

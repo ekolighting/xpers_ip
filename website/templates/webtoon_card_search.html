@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block title %}IP LIST CARD {% endblock %}
+
+{% block content%}<br/>
+<div style="text-align: center;">
+    <img src="../../static/images/Slogan_2_Black.png" style = "max-width: 100%" alt="Slogan_black">
+</div>
+<h2 align="center">
+    {{ips[0].__class__.__name__}}
+</h2>
+    <div align="center">
+    {% if searched %}
+    <h5>
+        searched {{ total_num }}
+    </h5>
+    {% endif %}
+    <a href="/export/{{ips[0].__class__.__name__}}">
+  <img src="../../static/images/export-excel.png" height="30" width="30" alt="exporting xlsx">
+Download Excel</a>
+    </div>
+
+
+<div class="row row-cols-1 row-cols-md-4 g-4">
+    {% for ip in ips %}
+    
+<div class="card" style="width: 18rem; border-radius: 10px;">
+    <img class="card-img-top" src="../../static/images/Pattern_line_RGB_9.jpg" alt="Card image cap" style="border-radius: 10px;">
+    <div class="card-body">
+    <h4 class="card-title">{{ip.title}}</h4>
+    <h6 class="card-subtitle mb-2 text-muted">작가 - {{ip.writer}}</h6>
+    <br/>
+      <p class="card-text">
+          {% if ip.copyright_status %}
+              판권현황 - {{ip.copyright_status}}
+          {% else %}
+              판권현황 - None
+          {% endif %}
+      <br/>장르 - {{ip.genre}} 
+      <br/>연재시기 - {{ip.date_pub}}
+        
+        </p>
+    
+     <a href="/detail-view/{{ip.__class__.__name__}}/{{ip.id}}" class="btn btn-outline-secondary btn-sm" >view in detail</a>
+     <a href="/update/{{ip.__class__.__name__}}/{{ip.id}}" class="btn btn-outline-secondary btn-sm" >edit</a>
+  </div>
+</div>
+  
+{% endfor %}
+</div>
+{% endblock %}

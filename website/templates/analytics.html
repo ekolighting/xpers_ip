@@ -1,0 +1,195 @@
+{% extends "base.html" %} {% block title %} Statics - web toon{% endblock %}
+{% block content%}
+
+<br/>
+<div style="text-align: center;">
+    <img src="../static/images/Slogan_2_Black.png" style = "max-width: 100%" alt="Slogan_black">
+</div>
+<br/>
+<div>
+   <img class="card-img-top" src="../static/images/separate_line.jpg" alt="seperated line" style="border-radius: 10px;"><br/> 
+</div><br/>
+<h2 align="center">Statistics - {{ips[0].__class__.__name__}} : 총 {{ total }} 개</h2>
+<div id="genre_barchart" style="width: 100%; height: 600px;"></div>
+<div id="copyright_status_barchart" style="width: 100%; height: 600px;"></div>
+<div id="date_monitor_barchart" style="width: 100%; height: 600px;"></div>
+
+<div>
+  <img class="card-img-top" src="../static/images/separate_line.jpg" alt="seperated line" style="border-radius: 10px;"><br/>  
+</div>
+<br/>
+<h2 align="center">Statistics - {{ips_webnovel[0].__class__.__name__}} : 총 {{ total_webnovel }} 개</h2>
+
+<div id="genre_barchart_webnovel" style="width: 100%; height: 600px;"></div>
+<div id="copyright_status_barchart_webnovel" style="width: 100%; height: 600px;"></div>
+<div id="date_monitor_barchart_webnovel" style="width: 100%; height: 600px;"></div>
+
+<div>
+  <img class="card-img-top" src="../static/images/separate_line.jpg" alt="seperated line" style="border-radius: 10px;"> <br/> 
+</div><br/>
+<h2 align="center">Statistics - {{ips_books[0].__class__.__name__}} : 총 {{ total_books }} 개</h2>
+
+<div id="genre_barchart_books" style="width: 100%; height: 600px;"></div>
+<div id="copyright_status_barchart_books" style="width: 100%; height: 600px;"></div>
+<div id="date_monitor_barchart_books" style="width: 100%; height: 600px;"></div>
+
+<br/>
+
+ <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawChart_genre_bar);
+      google.charts.setOnLoadCallback(drawChart_date_monitor_bar);
+      google.charts.setOnLoadCallback(drawChart_genre_bar_webnovel);
+      google.charts.setOnLoadCallback(drawChart_copyright_status_bar_webnovel);
+      google.charts.setOnLoadCallback(drawChart_date_monitor_bar_webnovel);
+      google.charts.setOnLoadCallback(drawChart_genre_bar_books);
+      google.charts.setOnLoadCallback(drawChart_copyright_status_bar_books);
+      google.charts.setOnLoadCallback(drawChart_date_monitor_bar_books);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable({{ copyright_status_graph_data | safe }});
+
+        var options = {
+          title: '판권현황 - 웹툰',
+          legend: { position: "none" },
+          chartArea: {width: '75%'},
+          hAxis: {
+              minValue: 0
+            }
+          }
+
+        var chart = new google.visualization.BarChart(document.getElementById('copyright_status_barchart'));
+        chart.draw(data, options);
+      }
+
+      function drawChart_genre_bar() {
+        var data_genre = google.visualization.arrayToDataTable({{ genre_graph_data | safe }});
+
+        var options_genre_bar = {
+          title: '주장르 - 웹툰',
+          legend: { position: "none" },
+          chartArea: {width: '75%'},
+          hAxis: {
+              minValue: 0
+            }
+        };
+
+        var chart_genre = new google.visualization.BarChart(document.getElementById('genre_barchart'));
+        chart_genre.draw(data_genre, options_genre_bar);
+      }
+        
+    function drawChart_date_monitor_bar() {
+        var data_date_monitor = google.visualization.arrayToDataTable({{ date_monitor_graph_data | safe }});
+
+        var options_date_monitor_bar = {
+          title: '모니터 시점 - 웹툰',
+          legend: { position: "none" },
+          chartArea: {width: '75%'},
+          hAxis: {
+              minValue: 0
+            }
+        };
+
+        var chart_date_monitor = new google.visualization.ColumnChart(document.getElementById('date_monitor_barchart'));
+        chart_date_monitor.draw(data_date_monitor, options_date_monitor_bar);
+      }
+        
+      function drawChart_genre_bar_webnovel() {
+        var data_genre_webnovel = google.visualization.arrayToDataTable({{ genre_graph_data_webnovel | safe }});
+
+        var options_genre_bar_webnovel = {
+          title: '주장르 - 웹소설',
+          legend: { position: "none" },
+          chartArea: {width: '75%'},
+          hAxis: {
+              minValue: 0
+            }
+        };
+
+        var chart_genre_webnovel = new google.visualization.BarChart(document.getElementById('genre_barchart_webnovel'));
+        chart_genre_webnovel.draw(data_genre_webnovel, options_genre_bar_webnovel);
+      }
+
+      function drawChart_copyright_status_bar_webnovel() {
+        var data_copyright_status_webnovel = google.visualization.arrayToDataTable({{ copyright_status_graph_data_webnovel | safe }});
+
+        var options_copyright_status_bar_webnovel = {
+          title: '판권현황 - 웹소설',
+          legend: { position: "none" },
+          chartArea: {width: '75%'},
+          hAxis: {
+              minValue: 0
+            }
+        };
+
+        var chart_copyright_status_webnovel = new google.visualization.BarChart(document.getElementById('copyright_status_barchart_webnovel'));
+        chart_copyright_status_webnovel.draw(data_copyright_status_webnovel, options_copyright_status_bar_webnovel);
+      }
+     
+    function drawChart_date_monitor_bar_webnovel() {
+        var data_date_monitor_webnovel = google.visualization.arrayToDataTable({{ date_monitor_graph_data_webnovel | safe }});
+
+        var options_date_monitor_bar_webnovel = {
+          title: '모니터 시점 - 웹소설',
+          legend: { position: "none" },
+          chartArea: {width: '75%'},
+          hAxis: {
+              minValue: 0
+            }
+        };
+
+        var chart_date_monitor_webnovel = new google.visualization.ColumnChart(document.getElementById('date_monitor_barchart_webnovel'));
+        chart_date_monitor_webnovel.draw(data_date_monitor_webnovel, options_date_monitor_bar_webnovel);
+      }
+        
+      function drawChart_genre_bar_books() {
+        var data_genre_books = google.visualization.arrayToDataTable({{ genre_graph_data_books | safe }});
+
+        var options_genre_bar_books = {
+          title: '주장르 - 출판도서',
+          legend: { position: "none" },
+          chartArea: {width: '75%'},
+          hAxis: {
+              minValue: 0
+            }
+        };
+
+        var chart_genre_books = new google.visualization.BarChart(document.getElementById('genre_barchart_books'));
+        chart_genre_books.draw(data_genre_books, options_genre_bar_books);
+      }
+
+      function drawChart_copyright_status_bar_books() {
+        var data_copyright_status_books = google.visualization.arrayToDataTable({{ copyright_status_graph_data_books | safe }});
+
+        var options_copyright_status_bar_books = {
+          title: '판권현황 - 출판도서',
+          legend: { position: "none" },
+          chartArea: {width: '75%'},
+          hAxis: {
+              minValue: 0
+            }
+        };
+
+        var chart_copyright_status_books = new google.visualization.BarChart(document.getElementById('copyright_status_barchart_books'));
+        chart_copyright_status_books.draw(data_copyright_status_books, options_copyright_status_bar_books);
+      }
+        
+    function drawChart_date_monitor_bar_books() {
+        var data_date_monitor_books = google.visualization.arrayToDataTable({{ date_monitor_graph_data_books | safe }});
+
+        var options_date_monitor_bar_books = {
+          title: '모니터 시점 - 출판도서',
+          legend: { position: "none" },
+          chartArea: {width: '75%'},
+          hAxis: {
+              minValue: 0
+            }
+        };
+
+        var chart_date_monitor_books = new google.visualization.ColumnChart(document.getElementById('date_monitor_barchart_books'));
+        chart_date_monitor_books.draw(data_date_monitor_books, options_date_monitor_bar_books);
+      }        
+ </script>
+{% endblock %}

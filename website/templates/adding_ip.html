@@ -1,0 +1,370 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}<br/>
+<h2>ADD IP - {{ips[0].__class__.__name__}}</h2>
+<br/>
+<form method="POST">
+   <div class="form-group">
+    <label for="num">번호(자동 입력)</label>
+    <input
+      type="num"
+      class="form-control form-rounded"
+      id="num"
+      name="num"
+      value="{{max_num}}"
+    />
+  </div>
+  <div class="form-group">
+    <label for="title">제목</label>
+    <input
+      type="title"
+      class="form-control form-rounded"
+      id="title"
+      name="title"
+      placeholder="Enter title"
+    />
+  </div>
+    {% if ips[0].__class__.__name__ == 'Books' %}
+<table class="table table-sm table-borderless" style = "text-align: left;"  >
+  <thead>
+    <tr>
+        <th scope="col" class = "align-middle">분류 선택 </th>
+        <th scope="col" class = "align-middle">분류 직접입력</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      
+    <td class = "align-middle" style="width: 40%;">
+      <select class="form-select form-rounded" 
+          id="category"
+          name="category"
+          >
+        <option selected value="">--직접입력--</option>
+        {% for category in all_category %}
+            <option value="{{category[0]}}">{{category[0]}}</option>
+        {% endfor %}
+        <option value="">--직접입력--</option>
+  </select>
+    </td>
+    <td class = "align-middle" >
+    <input style="width: 50%;"
+      type="text"
+      class="form-control form-rounded"
+      id="category_added"
+      name="category_added"
+      placeholder="Enter 분류"
+    />
+    </td>
+  </tr>
+        </tbody>
+    </table>
+<table class="table table-sm table-borderless" style = "text-align: left;"  >
+  <thead>
+    <tr>
+        <th scope="col" class = "align-middle">국가 선택 </th>
+        <th scope="col" class = "align-middle">국가 직접입력</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      
+    <td class = "align-middle" style="width: 40%;">
+      <select class="form-select form-rounded" 
+          id="nation"
+          name="nation"
+          >
+        <option selected value="">--직접입력--</option>
+        {% for nation in all_nation %}
+            <option value="{{nation[0]}}">{{nation[0]}}</option>
+        {% endfor %}
+        <option value="">--직접입력--</option>
+  </select>
+    </td>
+    <td class = "align-middle" >
+    <input style="width: 50%;"
+      type="text"
+      class="form-control form-rounded"
+      id="nation_added"
+      name="nation_added"
+      placeholder="Enter 국가"
+    />
+    </td>
+  </tr>
+        </tbody>
+    </table>
+    {% endif %}
+    <table class="table table-sm table-borderless" style = "text-align: left;"  >
+  <thead>
+    <tr>
+        <th scope="col" class = "align-middle">주장르 선택 </th>
+        <th scope="col" class = "align-middle">주장르 직접입력</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      
+    <td class = "align-middle" style="width: 40%;">
+      <select class="form-select form-rounded" 
+          id="genre"
+          name="genre"
+          >
+        <option selected value="">--직접입력--</option>
+        {% for genre in all_genre %}
+            <option value="{{genre[0]}}">{{genre[0]}}</option>
+        {% endfor %}
+        <option value="">--직접입력--</option>
+  </select>
+    </td>
+    <td class = "align-middle" >
+    <input style="width: 50%;"
+      type="text"
+      class="form-control form-rounded"
+      id="genre_added"
+      name="genre_added"
+      placeholder="Enter 장르"
+    />
+    </td>
+  </tr>
+        </tbody>
+    </table>
+
+  <div class="form-group">
+    <label for="keyword">키워드</label>
+    <input
+      type="text"
+      class="form-control form-rounded"
+      id="keyword"
+      name="keyword"
+      placeholder="Enter 키워드"
+    />
+  </div>
+   <table class="table table-sm table-borderless" style = "text-align: left;"  >
+  <thead>
+    <tr>
+        <th scope="col" class = "align-middle">추천경로 선택 </th>
+        <th scope="col" class = "align-middle">추천경로 직접입력</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>  
+    <td class = "align-middle" style="width: 40%;">
+      <select class="form-select form-rounded" 
+          id="ref_path"
+          name="ref_path"
+          >
+        <option selected value="">--직접입력--</option>
+        {% for ref_path in all_ref_path %}
+            <option value="{{ref_path[0]}}">{{ref_path[0]}}</option>
+        {% endfor %}
+        <option value="">--직접입력--</option>
+  </select>
+    </td>
+    <td class = "align-middle" >
+    <input style="width: 50%;"
+      type="text"
+      class="form-control form-rounded"
+      id="ref_path_added"
+      name="ref_path_added"
+      placeholder="Enter 추천경로"
+    />
+    </td>
+  </tr>
+        </tbody>
+    </table>
+  <div class="form-group">
+    <label for="copyright">저작권</label>
+    <input
+      type="copyright"
+      class="form-control form-rounded"
+      id="copyright"
+      name="copyright"
+      placeholder="Enter 저작권사"
+    />
+  </div>
+  <div class="form-group">
+    <label for="writer">원작자</label>
+    <input
+      type="writer"
+      class="form-control form-rounded"
+      id="writer"
+      name="writer"
+      placeholder="Enter 원작자"
+    />
+  </div>
+<table class="table table-sm table-borderless" style = "text-align: left;"  >
+  <thead>
+    <tr>
+        <th scope="col" class = "align-middle">저작권/판권 현황 선택 </th>
+        <th scope="col" class = "align-middle">저작권/판권 현황 직접입력</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>  
+    <td class = "align-middle" style="width: 40%;">
+      <select class="form-select form-rounded" 
+          id="copyright_status"
+          name="copyright_status"
+          >
+        <option selected value="">--직접입력--</option>
+        {% for copyright_status in all_copyright_status %}
+            <option value="{{copyright_status[0]}}">{{copyright_status[0]}}</option>
+        {% endfor %}
+        <option value="">--직접입력--</option>
+  </select>
+    </td>
+    <td class = "align-middle" >
+    <input style="width: 50%;"
+      type="text"
+      class="form-control form-rounded"
+      id="copyright_status_added"
+      name="copyright_status_added"
+      placeholder="Enter 저작권/판권 현황"
+    />
+    </td>
+  </tr>
+        </tbody>
+    </table>
+    
+  <div class="form-group">
+    <label for="writer">조건 및 참고사항</label>
+    <input
+      type="text"
+      class="form-control form-rounded"
+      id="condition"
+      name="condition"
+      placeholder="Enter 조건 및 참고사항"
+    />
+  </div>
+  <div class="form-group">
+    <label for="date_pub">연재일/출판일</label>
+      <select class="form-select form-rounded" 
+          id="dp_year"
+          name="dp_year"
+          >
+    <option selected>{{this_year}}</option>
+      {% for year in range(1948,this_year+1)%}
+        <option value="{{ year }}">{{year}}</option>
+      {% endfor %}
+  </select>
+      <a>년</a>
+      <select class="form-select form-rounded" 
+          id="dp_month"
+          name="dp_month"
+          >
+    <option selected>1</option>
+      {% for mon in range(1,13)%}
+        <option value="{{ mon }}">{{mon}}</option>
+      {% endfor %}
+  </select>
+  </div>
+
+    <div class="form-floating">
+        <label for="floatingSelect">모니터링 진행 여부</label>
+        <select class="form-select form-rounded" 
+          id="monitored"
+          name="monitored"
+          >
+    <option selected value="Y">Y</option>
+    <option value="Y">Y</option>
+    <option value="N">N</option>
+  </select>  
+</div><br/>
+  <div class="form-group">
+    <label for="date_monitor">모니터링 시점</label>
+    <select class="form-select form-rounded" 
+          id="dm_year"
+          name="dm_year"
+          >
+    <option selected>{{this_year}}</option>
+      {% for year in range(1948,this_year+1)%}
+        <option value="{{ year }}">{{year}}</option>
+      {% endfor %}
+  </select>
+      <a>년</a>
+      <select class="form-select form-rounded" 
+          id="dm_month"
+          name="dm_month"
+          >
+    <option selected>1</option>
+      {% for mon in range(1,13)%}
+        <option value="{{ mon }}">{{mon}}</option>
+      {% endfor %}
+  </select>
+           <a>월</a>
+  </div>    
+
+    <div class="form-floating">
+        <label for="floatingSelect">현업 제안 여부</label>
+        <select class="form-select form-rounded" 
+          id="suggested"
+          name="suggested"
+          >
+    <option selected value="Y">Y</option>
+    <option value="Y">Y</option>
+    <option value="N">N</option>
+  </select>
+</div><br/>
+
+<div class="form-group">
+    <label for="date_suggested">현업 제안 시기</label>
+        <select class="form-select form-rounded" 
+          id="dsg_year"
+          name="dsg_year"
+          >
+    <option selected>{{this_year}}</option>
+      {% for year in range(1948,this_year+1)%}
+        <option value="{{ year }}">{{year}}</option>
+      {% endfor %}
+  </select>
+      <a>년</a>
+      <select class="form-select form-rounded" 
+          id="dsg_month"
+          name="dsg_month"
+          >
+    <option selected>1</option>
+      {% for mon in range(1,13)%}
+        <option value="{{ mon }}">{{mon}}</option>
+      {% endfor %}
+  </select>
+           <a>월</a>
+  </div>
+    {% if ips[0].__class__.__name__ != 'WebToonIP' %}
+<div class="form-group">
+    <label for="suggested_feedback">현업 제안 내용</label>
+    <input
+      type="text"
+      class="form-control form-rounded"
+      id="suggested_feedback"
+      name="suggested_feedback"
+      placeholder="Enter 현업 제안 내용"
+    />
+  </div>
+    {% endif %}
+<div class="form-group">       
+    <label for="story">줄거리</label>
+  <textarea name="story" id="story" class="form-control form-rounded" placeholder = "Enter 줄거리"></textarea>
+    </div>
+
+
+    <div class="form-group">
+    <label for="feedback">검토의견</label>
+        <textarea 
+        name="feedback" 
+        id="feedback" 
+        class="form-control form-rounded" 
+        placeholder="Enter 검토의견"
+        ></textarea>
+  </div>
+<br/>
+  <div align="center">
+    <button type="submit" class="btn btn-primary form-rounded">Add IP</button>
+    <a href="/Books" class="btn btn-outline-secondary form-rounded" > back to list </a>
+  </div>
+    <br/><br/>
+</form>
+
+<style>
+h2 {text-align: center;}
+    .form-rounded {border-radius: 0.5rem;}
+</style>
+{% endblock %}

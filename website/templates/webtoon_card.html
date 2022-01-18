@@ -1,0 +1,172 @@
+{% extends "base.html" %} {% block title %}IP LIST CARD {% endblock %}
+
+{% block content%}<br/>
+<div style="text-align: center;">
+    <img src="../static/images/Slogan_2_Black.png" style = "max-width: 100%" alt="Slogan_black">
+</div>
+<h2 align="center">
+    {{ips[0].__class__.__name__}}
+</h2>
+<a href="/adding/{{ips[0].__class__.__name__}}" class="btn btn-primary btn-sm" style = "width : 100%" >Add IP</a>
+
+<form name = 'searchitems' method = "GET" id = 'searchitems' action="{{ url_for('views.search_ips', ip_type = ips[0].__class__.__name__) }}">
+<table class="table table-sm table-borderless" >
+  <thead>
+    <tr>
+        <th scope="col" style = "text-align: right;"></th>
+        <th scope="col" style = "text-align: left;"></th>
+        <th scope="col" style = "text-align: right;"></th>
+        <th scope="col" style = "text-align: left;"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class = "align-middle" style = "width : 15%">
+          <h5>
+              <span class="badge bg-light">제목</span>
+          </h5>
+      </td>
+    <td class = "align-middle" ><input type="text" autofocus="autofocus" id="searchtitle" name="searchtitle" class="form-control form-rounded form-control-sm" placeholder="제목 검색" aria-describedby="basic-addon2">
+    </td>
+        <td class = "align-middle" style = "width : 15%">
+        <h5>
+      <span class="badge bg-light">키워드</span>
+          </h5>
+        <td class = "align-middle" >
+        <input type="text" id="search_keyword" name="search_keyword" class="form-control form-rounded form-control-sm" placeholder="키워드 검색" aria-describedby="basic-addon2">
+    </td>
+  </tr>
+
+<tr>
+  <td class = "align-middle" style = "width : 15%">
+        <h5>
+      <span class="badge bg-light">판권현황</span>
+          </h5>
+        <td class = "align-middle" >
+    <div class="form-floating">
+        <select class="form-select form-rounded" 
+          id="search_copyright_status"
+          name="search_copyright_status"
+          >
+        <option selected value="">ALL</option>
+        {% for copyright_status in all_copyright_status %}
+            <option value="{{copyright_status[0]}}">{{copyright_status[0]}}</option>
+        {% endfor %}
+            <option value="">ALL</option>
+  </select> 
+</div>
+            <td class = "align-middle" style = "width : 15%">
+          <h5>
+              <span class="badge bg-light">모니터링 시점</span>
+          </h5>
+      </td>
+    <td class = "align-middle" >
+        <select class="form-select form-rounded" 
+          id="search_dm_year"
+          name="search_dm_year"
+          >
+    <option selected value="">ALL</option>
+      {% for year in range(1948,this_year+1)%}
+        <option value="{{ year }}">{{year}}</option>
+      {% endfor %}
+        <option value="">ALL</option>
+  </select>
+      <a>년</a>
+      <select class="form-select form-rounded" 
+          id="search_dm_month"
+          name="search_dm_month"
+          >
+    <option selected value="">ALL</option>
+      {% for mon in range(1,13)%}
+        <option value="{{ mon }}">{{mon}}</option>
+      {% endfor %}
+        <option value="">ALL</option>
+  </select>
+        <a>월</a>
+        
+      </td>
+  <tr>
+      <td class = "align-middle" style = "width : 15%">
+          <h5>
+              <span class="badge bg-light">연재일/출판일</span>
+          </h5>
+      </td>
+<td class = "align-middle" >
+        <select class="form-select form-rounded" 
+          id="search_dp_year"
+          name="search_dp_year"
+          >
+    <option selected value="">ALL</option>
+      {% for year in range(1948,this_year+1)%}
+        <option value="{{ year }}">{{year}}</option>
+      {% endfor %}
+        <option value="">ALL</option>
+  </select>
+      <a>년</a>
+      <select class="form-select form-rounded" 
+          id="search_dp_month"
+          name="search_dp_month"
+          >
+    <option selected value="">ALL</option>
+      {% for mon in range(1,13)%}
+        <option value="{{ mon }}">{{mon}}</option>
+      {% endfor %}
+        <option value="">ALL</option>
+  </select>
+        <a>월</a>
+        
+      </td>
+    <td class = "align-middle" style = "width : 15%">
+        <h5>
+          <span class="badge bg-light">장르</span>
+          </h5>
+        <td class = "align-middle" >
+            <div class="form-floating">
+        <select class="form-select form-rounded" 
+          id="search_genre"
+          name="search_genre"
+          >
+        <option selected value="">ALL</option>
+        {% for genre in all_genre %}
+            <option value="{{genre[0]}}">{{genre[0]}}</option>
+        {% endfor %}
+        <option value="">ALL</option>
+  </select>
+</div>
+    </td>
+  </tr>
+  </tbody>
+</table>
+  <div class="d-grid gap-2 d-md-block">
+  <button type="submit" class="btn btn-warning btn-sm" style = "width : 100%"> Search </button>
+</div>
+</form>
+
+<form name = 'download_excel' method = "POST" id = 'download_excel' action="{{ url_for('views.show_ip', ip_type = ips[0].__class__.__name__)}}">
+    {% if searched == 'True' %}
+  <button type="submit" class="btn btn-outline-success btn-sm" style = "width : 100%"> Searched {{total_sum}} of {{total_num}} {{ips[0].__class__.__name__}} -- download(.xlsx)</button>
+    {% else %}
+    <button type="submit" class="btn btn-outline-success btn-sm" style = "width : 100%"> All {{total_num}} {{ips[0].__class__.__name__}} -- download(.xlsx) </button>
+    {% endif %}
+</form>
+<br/>
+<div class="row row-cols-1 row-cols-md-4 g-4">
+    {% for ip in ips %}
+<div class="card" style="width: 18rem; border-radius: 10px;">
+    <img class="card-img-top" src="../static/images/Pattern_line_RGB_9.jpg" alt="Card image cap" style="border-radius: 10px;">
+    <div class="card-body">
+    <h4 class="card-title">{{ip.title}}</h4>
+    <h6 class="card-subtitle mb-2 text-muted">작가 - {{ip.writer}}</h6>
+    <br/>
+      <p class="card-text">
+      판권현황 - {{ip.copyright_status}}
+      <br/>장르 - {{ip.genre}} 
+      <br/>연재시기 - {{ip.date_pub}}
+      </p>
+    <a href="/detail-view/{{ip.__class__.__name__}}/{{ip.id}}" class="btn btn-outline-secondary btn-sm" >view in detail</a>
+    <a href="/update/{{ip.__class__.__name__}}/{{ip.id}}" class="btn btn-outline-secondary btn-sm" >edit</a>
+  </div>
+</div>
+{% endfor %}
+</div>
+{% endblock %}
